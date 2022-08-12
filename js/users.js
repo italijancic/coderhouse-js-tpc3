@@ -15,28 +15,29 @@ document.addEventListener('DOMContentLoaded', () => {
 	})
 
 
-	document.querySelector('#btnAddUser').addEventListener('click', (event) => {
+	document.querySelector('#new-user-form').addEventListener('submit', (event) => {
+
 		event.preventDefault()
 
 		// Create new User class instance
 		const newUser = {
-			"username": document.querySelector('#username-text-input').value,
-			"email": document.querySelector('#email-text-input').value,
-			"password": document.querySelector('#password-text-input').value,
+			"username": event.target[0].value,
+			"email": event.target[1].value,
+			"password": event.target[2].value,
 			"devices": []
 		}
+
+		users.addUser(new User(newUser.username, newUser.email, newUser.password, []))
 
 		// Clear form
 		document.querySelector('#username-text-input').value = ''
 		document.querySelector('#email-text-input').value = ''
 		document.querySelector('#password-text-input').value = ''
 
-		users.addUser(new User(newUser.username, newUser.email, newUser.password, []))
-
 		// Render new users list
 		renderUsersList(users.getUsers())
 
-
+		// Save new data on session storage
 		sessionStorage.setItem('users', JSON.stringify(users))
 	})
 
