@@ -3,7 +3,6 @@ import { Device, Devices, devices, renderDevicesList } from "./devicesServices.j
 
 document.addEventListener('DOMContentLoaded', () => {
 
-
 	renderDevicesList(devices.getDevices())
 
 })

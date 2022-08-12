@@ -26,10 +26,16 @@ document.addEventListener('DOMContentLoaded', () => {
 			"devices": []
 		}
 
+		// Clear form
+		document.querySelector('#username-text-input').value = ''
+		document.querySelector('#email-text-input').value = ''
+		document.querySelector('#password-text-input').value = ''
+
 		users.addUser(new User(newUser.username, newUser.email, newUser.password, []))
 
 		// Render new users list
 		renderUsersList(users.getUsers())
+
 
 		sessionStorage.setItem('users', JSON.stringify(users))
 	})
