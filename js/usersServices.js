@@ -1,4 +1,4 @@
-import { Device, Devices, devices, renderDevicesList } from "./devicesServices.js"
+import { devices } from "./devicesServices.js"
 
 /**
  * @description Class representing a a user
@@ -155,9 +155,19 @@ class Users {
 
 // Create users
 const users = new Users([])
-users.addUser(new User('italijancic', 'italijancic@gmail.com', '12345678', []))
-users.addUser(new User('cdomenje', 'cdomenje@dytsoluciones.com.ar', '12345678', []))
-users.addUser(new User('espesot', 'espesot@dytsoluciones.com.ar', '12345678', []))
+// Get data from sesion store
+
+if (sessionStorage.getItem('users') !== null) {
+	const storageUsers = JSON.parse(sessionStorage.getItem('users')).users
+	storageUsers.forEach((user) => {
+		users.addUser(new User(user.username, user.email, user.password, []))
+	})
+} else {
+	users.addUser(new User('italijancic', 'italijancic@gmail.com', '12345678', []))
+	users.addUser(new User('cdomenje', 'cdomenje@dytsoluciones.com.ar', '12345678', []))
+	users.addUser(new User('espesot', 'espesot@dytsoluciones.com.ar', '12345678', []))
+	sessionStorage.setItem('users', JSON.stringify(users))
+}
 
 // Add devices to users objects
 users.getUserByName('italijancic').addDevice(devices.getDeviceById('08:3a:f2:49:8d:7c'))
